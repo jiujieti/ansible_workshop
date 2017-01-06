@@ -1,0 +1,13 @@
+---
+
+- hosts: all
+
+  tasks:
+
+    - name: Check if the server is in the DR site
+      debug: msg="This server is located at the DR site"
+      when: (DR_site is defined) or ("'{{ DR_site }}' in {{ group_names }}")
+
+#    - name: Check if the server is in the MAIN site
+#      debug: msg="This server is located at the MAIN site"
+#      when: DR_site is defined and "'{{ DR_site }}' not in {{ group_names }}"

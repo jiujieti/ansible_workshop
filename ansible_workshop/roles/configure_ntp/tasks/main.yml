@@ -1,0 +1,12 @@
+---
+# tasks file for ntp
+
+- name: Install NTP package
+  yum: name=ntp state=present
+
+- name: Copy the right configuration file
+  template: src=ntp.conf.j2 dest=/etc/ntp.conf
+  notify: restart ntpd
+
+- name: Start the NTP service (also on boot)
+  service: name=ntpd state=started enabled=yes

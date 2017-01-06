@@ -1,0 +1,18 @@
+---
+
+- name: Common tasks for all hosts
+  hosts: all
+  roles:
+    - configure_timezone
+    - configure_ntp
+    - configure_motd
+
+- name: Databaseserver tasks
+  hosts: databaseservers
+  roles:
+    - configure_mysql
+
+- name: Webserver tasks
+  hosts: webservers
+  roles:
+    - configure_http

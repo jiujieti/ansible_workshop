@@ -1,0 +1,15 @@
+[databaseservers]
+db01
+
+[webservers]
+web01
+
+[netherlands:children]
+databaseservers
+
+[belgium:children]
+webservers
+
+[allservers:children]
+databaseservers
+webservers

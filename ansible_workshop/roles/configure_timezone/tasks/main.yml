@@ -1,0 +1,29 @@
+---
+# tasks file for timezone
+
+- name: make sure tzdata is installed for debian systems
+  apt: pkg=tzdata state=present
+  when: ansible_os_family=='Debian'
+  tags: [timezone]
+
+- name: make sure tzdata is installed for rhel systems
+  yum: pkg=tzdata state=present
+  when: ansible_os_family=='RedHat'
+  tags: [timezone]
+
+- name: set timezone
+  template: src=timezone.j2 dest=/etc/timezone
+  tags: [timezone]
+
+- name: set localtime
+  file:
+    src: /usr/share/zoneinfo/{{ timezone }}
+    dest: /etc/localtime
+    state: link
+    owner: root
+    group: root
+    mode: 0644
+    force: yes
+  #notify:
+  #  - update tzdata
+  tags: [timezone]
